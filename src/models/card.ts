@@ -22,4 +22,9 @@ export class Card {
     this.title = title;
     this.description = description;
   }
+  
+  setPile(pile: Pile): Card {
+    this.pile = pile;
+    return this;
+  }
 }
