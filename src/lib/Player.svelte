@@ -5,7 +5,7 @@
 </script>
 
 <div id="player" class="player">
-  <img src="/src/assets/alice_1.png" alt="Alice" class="player-image"/>
+  <img src="/src/assets/alice_1.png" alt="Alice" class="player-image" draggable="false"/>
   <div class="name">{ player.name }</div>
   <div class="healthbar">{ player.currentHealth }/{ player.maxHealth }</div>
 </div>
