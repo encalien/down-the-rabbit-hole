@@ -8,7 +8,6 @@ export class Card {
   type: Type;
   title: string;
   description: string;
-  imgSrc: string = "";
 
   constructor(type: Type, title: string, description: string) {
     this.type = type;
