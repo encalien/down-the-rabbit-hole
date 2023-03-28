@@ -1,4 +1,4 @@
-import { Type, Card, Pile } from '../models/card';
+import { Type, Card } from '../models/card';
 
 export class Game {
   // default new game setup
@@ -11,6 +11,8 @@ export class Game {
   drawPile: Card[] = [];
   discardPile: Card[] = [];
 
+  // counters
+  turn: number = 1;
 
   /**
    * Create a game object from the player's cookie, or initialise a new game
@@ -23,7 +25,7 @@ export class Game {
       this.handSize = currentGame.handSize;
     } else {
       this.setStartingDeck();
-      this.drawPile = Object.assign([], this.deck);
+      this.drawPile = Object.assign(this.drawPile, this.deck);
     }
   }
 
@@ -31,6 +33,7 @@ export class Game {
    * End turn
    */
   endTurn(): void {
+    this.turn++;
     this.clearHand();
     this.drawHand();
   }
@@ -49,12 +52,8 @@ export class Game {
    * Shuffle discard pile into draw pile
    */
   shuffleDeck(): void {
-    const drawPile = this.getDrawPileCards(this.deck);
-    const discardPile: Card[] = this.getDiscardPileCards(this.deck)
-      .sort(() => Math.random() - 0.5)
-      .map(c => c.setPile(Pile.DRAW));
-
-    this.drawPile = Object.assign(discardPile, drawPile);
+    const discardPile: Card[] = this.discardPile.sort(() => Math.random() - 0.5);
+    this.drawPile = Object.assign(discardPile, this.drawPile);
     this.discardPile = [];
   }
 
@@ -65,8 +64,7 @@ export class Game {
     if (this.drawPile.length < this.handSize) this.shuffleDeck();
 
     for (let i = 0; i < this.handSize; i++) {
-      const card = this.drawPile.pop();
-      this.drawCard(card);
+      this.drawCard();
     }
   }
 
@@ -74,50 +72,25 @@ export class Game {
    * Clear hand
    */
   clearHand(): void {
-    const handCount = this.hand.length
+    const handCount = this.hand.length;
     for (let i = 0; i < handCount; i++) {
-      const card = this.hand.pop();
-      this.discardCard(card);
+      this.discardCard();
     }
   }
 
   /**
    * Draw card
    */
-  drawCard(card): void {
-    card.setPile(Pile.HAND);
+  drawCard(): void {
+    const card = this.drawPile.pop();
     this.hand.push(card);
   }
 
   /**
    * Discard card
    */
-  discardCard(card): void {
-    card.setPile(Pile.DISCARD);
+  discardCard(): void {
+    const card = this.hand.pop();
     this.discardPile.push(card);
-  }
-
-  /**
-   * Update current draw pile
-   * @param pile pile from which to filter new selection
-   */
-  getDrawPileCards(pile): Card[] {
-    return pile.filter(card => card.pile === Pile.DRAW);
-  }
-
-  /**
-   * Update current hand
-   * @param pile pile from which to filter new selection
-   */
-  getHandCards(pile): Card[] {
-    return pile.filter(card => card.pile === Pile.HAND);
-  }
-
-  /**
-   * Update current discard pile
-   * @param pile pile from which to filter new selection
-   */
-  getDiscardPileCards(pile): Card[] {
-    return pile.filter(card => card.pile === Pile.DISCARD);
   }
 }
