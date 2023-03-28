@@ -7,7 +7,7 @@
 
 <div class="pile-sidebar-wrapper">
   {#each pile as card}
-    <Card card={ card } />
+    <Card { card } playable={ false } />
   {/each}
 </div>
 

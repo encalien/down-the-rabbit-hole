@@ -130,4 +130,14 @@ export class Game {
     this.handSize += quantity;
     if (this.handSize > this.maxHandSize) this.handSize = this.maxHandSize;
   }
+    
+  /**
+   * Play card
+   * @param card card to play
+   */
+  playCard(card: Card): void {
+    card.effects.forEach(effect => {
+      this[effect.target][effect.action](effect.value);
+    })
+  }
 }

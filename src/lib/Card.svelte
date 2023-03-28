@@ -1,12 +1,24 @@
 <script lang="ts">
   import type { Card } from "../models/card";
+  import type { Game } from "../models/game";
 
   export let card: Card;
+  export let playable: boolean = card.playable;
+  export let game: Game = null;
+  export let accessorObject: any = null;
+
+  function playCard(): void {
+    game.playCard(card);
+    accessorObject.updateGame(game);
+  }
 </script>
 
 <div class="card { card.type }">
   <div class="card-title">{ card.title }</div>
   <div class="card-description">{ card.description }</div>
+  {#if playable}
+    <button on:click={ playCard }>Play</button>
+  {/if}
 </div>
 
 <style>

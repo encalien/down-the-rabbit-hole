@@ -8,9 +8,17 @@
   let isDrawPileSidebarOpen: boolean = false;
   let isDiscardPileSidebarOpen: boolean = false;
 
+  let accessorObject = {
+    updateGame: updateGame,
+  }
+
+  function updateGame(newGameState: Game) {
+    game = newGameState;
+  }
+
   function endTurn() {
     game.endTurn();
-    game = game;
+    updateGame(game)
   }
 
   function togglePileShown(pileName) {
@@ -38,34 +46,30 @@
 <div class="main-container">
   <div class="game-container">
     <!-- Player -->
-    <Entity entity={ game.player }/>
-    <Entity entity={ game.enemy }/>
+    <Entity entity={ game.player } { accessorObject } />
+    <Entity entity={ game.enemy } { accessorObject } />
     <!-- Enemy -->
   </div>
   <!-- Cards -->
   <div class="cards-container">
-    {#if isDrawPileSidebarOpen}
-      <div id="draw-pile-sidebar" class="pile-sidebar">
-        <PileSidebar pile={ game.drawPile }/>
-      </div>
-    {/if}
+    <div id="draw-pile-sidebar" class="pile-sidebar" class:hidden={!isDrawPileSidebarOpen}>
+      <PileSidebar pile={ game.drawPile } />
+    </div>
     <div id="draw-pile" class="pile-wrapper">
       <button class="pile" on:click={ () => togglePileShown('draw') }>{ game.drawPile.length }</button>
       <div>Draw Pile</div>
     </div>
     <div id="hand">
-      <Hand game={ game }/>
+      <Hand game={ game } { accessorObject } />
       <button on:click={ endTurn }>End turn</button>
     </div>
     <div id="discard-pile" class="pile-wrapper">
       <button class="pile" on:click={ () => togglePileShown('discard') }>{ game.discardPile.length }</button>
       <div>Discard Pile</div>
     </div>
-    <!-- {#if isDiscardPileSidebarOpen} -->
     <div id="discard-pile-sidebar" class="pile-sidebar" class:hidden={!isDiscardPileSidebarOpen}>
-      <PileSidebar pile={ game.discardPile }/>
+      <PileSidebar pile={ game.discardPile } />
     </div>
-    <!-- {/if} -->
   </div>
 </div>
 

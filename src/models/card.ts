@@ -21,6 +21,7 @@ export class Card {
   title: string;
   description: string;
   effects: Effect[];
+  playable: boolean = true;
 
   constructor(type: Type, title: string, description: string, effects: Effect[]) {
     this.type = type;
