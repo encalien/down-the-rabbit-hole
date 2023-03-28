@@ -1,11 +1,13 @@
 class Entity {
   name: string;
-  maxHealth: number = 30;
-  currentHealth: number = 30;
+  maxHealth: number;
+  currentHealth: number;
   block: number = 0;
 
-  constructor(name: string) {
+  constructor(name: string, maxHealth: number) {
     this.name = name;
+    this.maxHealth = maxHealth;
+    this.currentHealth = this.maxHealth;
   }
 
   gainBlock(block: number): void {

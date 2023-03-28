@@ -2,7 +2,7 @@
   import Hand from './Hand.svelte';
   import PileSidebar from './PileSidebar.svelte';
   import { Game } from '../models/game';
-    import Player from './Player.svelte';
+  import Entity from './Entity.svelte';
 
   let game: Game = new Game();
   let isDrawPileSidebarOpen: boolean = false;
@@ -40,7 +40,8 @@
 <div style="display: flex; flex-direction: column;">
   <div class="main-container">
     <!-- Player -->
-    <Player player={ game.player }/>
+    <Entity entity={ game.player }/>
+    <Entity entity={ game.enemy }/>
     <!-- Enemy -->
   </div>
   <!-- Cards -->

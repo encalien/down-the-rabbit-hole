@@ -1,17 +1,18 @@
 <script lang="ts">
 	import type { Entity } from '../models/entity';
+  import { toSnakeCase } from '../utils';
 
-  export let player: Entity;
+  export let entity: Entity;
 </script>
 
-<div id="player" class="player">
-  <img src="/src/assets/alice_1.png" alt="Alice" class="player-image" draggable="false"/>
-  <div class="name">{ player.name }</div>
-  <div class="healthbar">{ player.currentHealth }/{ player.maxHealth }</div>
+<div id="entity" class="entity">
+  <img src="/src/assets/{ toSnakeCase(entity.name) }.png" alt="{ entity.name }" class="image" draggable="false"/>
+  <div class="name">{ entity.name }</div>
+  <div class="healthbar">{ entity.currentHealth }/{ entity.maxHealth }</div>
 </div>
 
 <style>
-  .player {
+  .entity {
     display: flex;
     flex-direction: column;
     height: 350px;
@@ -20,7 +21,7 @@
     justify-content: space-between;
   }
 
-  .player-image {
+  .image {
     height: 300px;
   }
   

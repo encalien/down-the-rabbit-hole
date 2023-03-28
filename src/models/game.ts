@@ -16,7 +16,8 @@ export class Game {
   turn: number = 1;
 
   // entities
-  player: Entity = new Entity("Alice");
+  player: Entity = new Entity("Alice", 70);
+  enemy: Entity = new Entity("Queen of Hearts", 20);
 
   /**
    * Create a game object from the player's cookie, or initialise a new game
