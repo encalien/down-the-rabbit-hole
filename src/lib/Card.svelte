@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let card;
+  import type { Card } from "../models/card";
+
+  export let card: Card;
 </script>
 
 <div class="card { card.type }">

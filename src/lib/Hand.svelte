@@ -1,26 +1,10 @@
-<script>
+<script lang="ts">
   import Card from "./Card.svelte";
+  import type { Card as CardType } from '../models/card';
 
-  let hand = [
-  {
-    type: 'attack',
-    title: "Strike",
-    description: "Deal 6 damage.",
-    imgSrc: ""
-  },
-  {
-    type: 'skill',
-    title: "Defend",
-    description: "Gain 5 block.",
-    imgSrc: ""
-  },
-  {
-    type: 'power',
-    title: "Deep pockets",
-    description: "Draw one more card.",
-    imgSrc: ""
-  }
-]
+  import { cardCollection } from "../server/cards_collection";
+
+  let hand: CardType[] = cardCollection;
 </script>
 
 <div id="hand">
