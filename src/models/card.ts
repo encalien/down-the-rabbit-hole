@@ -4,11 +4,18 @@ export enum Type {
   POWER = 'power'
 }
 
+export enum Pile {
+  DRAW = 'draw',
+  HAND = 'hand',
+  DISCARD = 'discard'
+}
+
 export class Card {
   type: Type;
   title: string;
   description: string;
   imgSrc: string = "";
+  pile: Pile = Pile.DRAW;
 
   constructor(type: Type, title: string, description: string) {
     this.type = type;

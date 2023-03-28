@@ -1,14 +1,12 @@
 <script lang="ts">
   import Card from "./Card.svelte";
-  import type { Card as CardType } from '../models/card';
+  import type Game from "../models/game";
 
-  import { cardCollection } from "../server/cards_collection";
-
-  let hand: CardType[] = cardCollection;
+  export let game: Game;
 </script>
 
 <div id="hand">
-  {#each hand as card}
+  {#each game.hand as card}
     <Card card={ card } />
   {/each}
 </div>
