@@ -1,4 +1,5 @@
 import { Type, Card } from '../models/card';
+import { Entity } from './entity';
 
 export class Game {
   // default new game setup
@@ -13,6 +14,9 @@ export class Game {
 
   // counters
   turn: number = 1;
+
+  // entities
+  player: Entity = new Entity("Alice");
 
   /**
    * Create a game object from the player's cookie, or initialise a new game

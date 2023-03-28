@@ -2,7 +2,7 @@
   import Hand from './Hand.svelte';
   import PileSidebar from './PileSidebar.svelte';
   import { Game } from '../models/game';
-    import Header from './Header.svelte';
+    import Player from './Player.svelte';
 
   let game: Game = new Game();
   let isDrawPileSidebarOpen: boolean = false;
@@ -38,12 +38,13 @@
 </script>
 
 <div style="display: flex; flex-direction: column;">
-  <div id="combat-area" style="height: calc(100vh - 240px)">
+  <div class="main-container">
     <!-- Player -->
+    <Player player={ game.player }/>
     <!-- Enemy -->
   </div>
   <!-- Cards -->
-  <div class="flex-container">
+  <div class="cards-container">
     {#if isDrawPileSidebarOpen}
       <div id="draw-pile-sidebar" class="pile-sidebar">
         <PileSidebar pile={ game.drawPile }/>
@@ -70,10 +71,20 @@
 </div>
 
 <style>
-  .flex-container {
+  .cards-container {
     display: flex;
     gap: 60px;
     justify-content: space-between;
+  }
+
+  .main-container {
+    /* vieport - cards-container height - main-container padding */
+    height: calc(100vh - 240px - 40px); 
+    display: flex;
+    gap: 60px;
+    justify-content: space-between;
+    align-items: end;
+    padding: 20px 140px;
   }
 
   .pile-wrapper {
