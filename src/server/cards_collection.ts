@@ -1,19 +1,28 @@
-import { Type, Card } from "../models/card";
+import { Type, Card, Target } from "../models/card";
 
 export const cardCollection: Card[] = [
   new Card(
-    Type.ATTACK,
-    "Strike",
-    "Deal 6 damage."
-    ),
+    Type.ATTACK, 
+    "Strike", 
+    "Deal 6 damage.",
+    [
+      { action: "takeDamage", value: 6, target: Target.ENEMY }
+    ]
+  ),
   new Card(
     Type.SKILL,
     "Defend",
-    "Gain 5 block."
+    "Gain 5 block.",
+    [
+      { action: "gainBlock", value: 5, target: Target.PLAYER }
+    ]
   ),
   new Card(
-    Type.POWER,
+    Type.SKILL,
     "Deep pockets",
-    "Draw one more card."
+    "Until end of combat draw one more card at the start of turn.",
+    [
+      { action: "updateHandSize", value: 1, target: Target.GAME }
+    ]
   )
 ]

@@ -8,8 +8,6 @@
   let isDrawPileSidebarOpen: boolean = false;
   let isDiscardPileSidebarOpen: boolean = false;
 
-  game.drawHand();
-
   function endTurn() {
     game.endTurn();
     game = game;

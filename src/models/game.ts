@@ -1,10 +1,12 @@
-import { Type, Card } from '../models/card';
+import { cardCollection } from '../server/cards_collection';
+import type { Card } from '../models/card';
 import { Entity } from './entity';
 
 export class Game {
   // default new game setup
-  handSize: number = 5;
-  round: number = 1;
+  maxHandSize: number = 10;
+  gameHandSize: number = 5;
+  level: number = 0;
 
   // deck piles
   deck: Card[] = [];
@@ -12,12 +14,13 @@ export class Game {
   drawPile: Card[] = [];
   discardPile: Card[] = [];
 
-  // counters
-  turn: number = 1;
+  // set per combat
+  turn: number;
+  handSize: number;
 
   // entities
   player: Entity = new Entity("Alice", 70);
-  enemy: Entity = new Entity("Queen of Hearts", 20);
+  enemy: Entity;
 
   /**
    * Create a game object from the player's cookie, or initialise a new game
@@ -25,22 +28,41 @@ export class Game {
   constructor(storedCurrentGame: string | undefined = undefined) {
     if (storedCurrentGame) {
       const currentGame = JSON.parse(storedCurrentGame);
-      this.round = currentGame.round;
+      this.level = currentGame.round;
       this.deck = currentGame.deck;
       this.handSize = currentGame.handSize;
     } else {
       this.setStartingDeck();
       this.drawPile = Object.assign(this.drawPile, this.deck);
+      this.startLevel();
     }
+  }
+
+  /**
+   * Start new level
+   */
+  startLevel(): void {
+    this.level++;
+    this.enemy = new Entity("Queen of Hearts", 20);
+    this.turn = 0;
+    this.handSize = this.gameHandSize;
+    this.startTurn();
+  }
+
+  /**
+   * Start turn
+   */
+  startTurn(): void {
+    this.turn++;
+    this.drawHand();
   }
 
   /**
    * End turn
    */
   endTurn(): void {
-    this.turn++;
     this.clearHand();
-    this.drawHand();
+    this.startTurn();
   }
 
   /**
@@ -48,8 +70,9 @@ export class Game {
    */
   setStartingDeck(): void {
     for (let i = 0; i < 5; i++) {
-      this.deck.push(new Card(Type.ATTACK, `Strike ${i}`, "Deal 6 damage."));
-      this.deck.push(new Card(Type.SKILL, `Defend ${i}`, "Gain 5 block."));
+      const strike = cardCollection.find(card => card.title === "Strike");
+      const defend = cardCollection.find(card => card.title === "Defend");
+      this.deck.push(strike, defend);
     }
   }
 
@@ -97,5 +120,14 @@ export class Game {
   discardCard(): void {
     const card = this.hand.pop();
     this.discardPile.push(card);
+  }
+  
+  /**
+   * Update hand size
+   * @param quantity number of cards by which to adjust hand size
+   */
+  updateHandSize(quantity: number): void {
+    this.handSize += quantity;
+    if (this.handSize > this.maxHandSize) this.handSize = this.maxHandSize;
   }
 }
