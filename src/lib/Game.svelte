@@ -37,8 +37,8 @@
   }
 </script>
 
-<div style="display: flex; flex-direction: column;">
-  <div class="main-container">
+<div class="main-container">
+  <div class="game-container">
     <!-- Player -->
     <Entity entity={ game.player }/>
     <Entity entity={ game.enemy }/>
@@ -72,13 +72,13 @@
 </div>
 
 <style>
-  .cards-container {
+  .main-container {
     display: flex;
-    gap: 60px;
+    flex-direction: column;
     justify-content: space-between;
   }
 
-  .main-container {
+  .game-container {
     /* vieport - cards-container height - main-container padding */
     height: calc(100vh - 240px - 40px); 
     display: flex;
@@ -86,6 +86,12 @@
     justify-content: space-between;
     align-items: end;
     padding: 20px 140px;
+  }
+
+  .cards-container {
+    display: flex;
+    gap: 60px;
+    justify-content: space-between;
   }
 
   .pile-wrapper {
