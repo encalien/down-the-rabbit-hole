@@ -87,7 +87,7 @@
     gap: 60px;
     justify-content: space-between;
     align-items: end;
-    padding: 20px 140px;
+    padding: 20px 160px;
   }
 
   .cards-container {
