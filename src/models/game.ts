@@ -33,9 +33,17 @@ export class Game {
       this.handSize = currentGame.handSize;
     } else {
       this.setStartingDeck();
-      this.drawPile = Object.assign(this.drawPile, this.deck);
       this.startLevel();
     }
+  }
+
+  /**
+   * Reset draw pile
+   */
+  resetPiles(): void {
+    this.drawPile = Object.assign([], this.deck);
+    this.hand = [];
+    this.discardPile = [];
   }
 
   /**
@@ -44,9 +52,18 @@ export class Game {
   startLevel(): void {
     this.level++;
     this.enemy = new Entity("Queen of Hearts", 20);
+    this.resetPiles();
     this.turn = 0;
     this.handSize = this.gameHandSize;
     this.startTurn();
+  }
+
+  /**
+   * End current level
+   */
+  endLevel(): void {
+    console.log("Level complete!\nStarting new level");
+    this.startLevel();
   }
 
   /**
@@ -63,8 +80,7 @@ export class Game {
   endTurn(): void {
     this.clearHand();
     if (this.checkIfLevelComplete()) {
-      window.alert("level complete");
-      this.startLevel();
+      this.endLevel();
     } else {
       this.startTurn();
     }
@@ -153,9 +169,10 @@ export class Game {
    * @param {Card} card card to play
    */
   playCard(card: Card): void {
-    card.effects.forEach(effect => {
+    for (const effect of card.effects) {
       this[effect.target][effect.action](effect.value);
-    })
+      if (this.checkIfLevelComplete()) return this.endTurn();
+    }
     this.discardCard(card);
   }
 }
