@@ -7,11 +7,13 @@
 </script>
 
 <div id="entity" class="entity">
-  <img src="/src/assets/{ toSnakeCase(entity.name) }.png" alt="{ entity.name }" class="image" draggable="false"/>
-  <div class="name">{ entity.name }</div>
-  <div class="healthbar">
-    <span class="block">{ entity.block }</span>
-    { entity.currentHealth }/{ entity.maxHealth }
+  <img src="/src/assets/{ toSnakeCase(entity.name) }.png" alt="{ entity.name }" class="entity-image" draggable="false"/>
+  <div class="entity-details">
+    <div class="entity-name">{ entity.name }</div>
+    <div class="entity-healthbar">
+      <span class="block">{ entity.block }</span>
+      { entity.currentHealth }/{ entity.maxHealth }
+    </div>
   </div>
 </div>
 
@@ -19,21 +21,27 @@
   .entity {
     display: flex;
     flex-direction: column;
-    height: 350px;
+    height: 380px;
     padding: 0.5rem;
     text-align: center;
     justify-content: space-between;
   }
 
-  .image {
+  .entity-image {
     height: 300px;
   }
+
+  .entity-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
   
-  .name {
+  .entity-name {
     font-weight: bold;
   }
   
-  .healthbar {
+  .entity-healthbar {
     /* TODO: make healthbar color reflect hitpoints */
     background-color: red;
     font-size: 0.8rem;
