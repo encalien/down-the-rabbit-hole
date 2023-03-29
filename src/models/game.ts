@@ -62,7 +62,21 @@ export class Game {
    */
   endTurn(): void {
     this.clearHand();
-    this.startTurn();
+    if (this.checkIfLevelComplete()) {
+      window.alert("level complete");
+      this.startLevel();
+    } else {
+      this.startTurn();
+    }
+  }
+
+  /**
+   * Check win conditions of current level
+   * @returns {boolean} true if level ended in a win, false if level in progress
+   */
+  checkIfLevelComplete(): boolean {
+    if (this.enemy.currentHealth <= 0) return true;
+    return false;
   }
 
   /**
@@ -100,9 +114,10 @@ export class Game {
    * Clear hand
    */
   clearHand(): void {
-    const handCount = this.hand.length;
+    const handCount: number = this.hand.length;
     for (let i = 0; i < handCount; i++) {
-      this.discardCard();
+      const card: Card = this.hand.pop();
+      this.discardPile.push(card);
     }
   }
 
@@ -110,21 +125,23 @@ export class Game {
    * Draw card
    */
   drawCard(): void {
-    const card = this.drawPile.pop();
+    const card:Card = this.drawPile.pop();
     this.hand.push(card);
   }
 
   /**
    * Discard card
+   * @param {Card} card card to discard
    */
-  discardCard(): void {
-    const card = this.hand.pop();
+  discardCard(card: Card): void {
+    const cardIndex: number = this.hand.indexOf(card);
     this.discardPile.push(card);
+    this.hand.splice(cardIndex, 1);
   }
   
   /**
    * Update hand size
-   * @param quantity number of cards by which to adjust hand size
+   * @param {number} quantity number of cards by which to adjust hand size
    */
   updateHandSize(quantity: number): void {
     this.handSize += quantity;
@@ -133,11 +150,12 @@ export class Game {
     
   /**
    * Play card
-   * @param card card to play
+   * @param {Card} card card to play
    */
   playCard(card: Card): void {
     card.effects.forEach(effect => {
       this[effect.target][effect.action](effect.value);
     })
+    this.discardCard(card);
   }
 }
