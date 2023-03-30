@@ -10,8 +10,8 @@
   <img src="/src/assets/{ toSnakeCase(entity.name) }.png" alt="{ entity.name }" class="entity-image" draggable="false"/>
   <div class="entity-details">
     <div class="entity-name">{ entity.name }</div>
-    <div class="entity-healthbar">
-      <span class="block">{ entity.block }</span>
+    <div class="entity-healthbar" class:block-active={ entity.block }>
+      <span class="block-display" class:block-active={ entity.block }>{ entity.block }</span>
       { entity.currentHealth }/{ entity.maxHealth }
     </div>
   </div>
@@ -21,10 +21,12 @@
   .entity {
     display: flex;
     flex-direction: column;
-    height: 380px;
+    height: 360px;
+    width: 300px;
     padding: 0.5rem;
     text-align: center;
     justify-content: space-between;
+    align-items: center;
   }
 
   .entity-image {
@@ -40,26 +42,34 @@
   .entity-name {
     font-weight: bold;
   }
-  
+
   .entity-healthbar {
     /* TODO: make healthbar color reflect hitpoints */
     background-color: red;
     font-size: 0.8rem;
     font-weight: bold;
     position: relative;
+    width: 300px;
+    border: 3px solid black;
+    border-radius: 0.8rem;
   }
 
-  .block {
+  .block-display {
     position: absolute;
     height: 28px;
     width: 28px;
-    left: -22px;
-    top: -4px;
+    left: -32px;
+    top: -7px;
     background-color: cadetblue;
-    border-radius: 100%;
+    border: 3px solid black;
+    border-radius: 50% 50% 50% 50% / 12% 12% 88% 88%;
     display: flex;
     justify-content: center;
     align-items: center;
     color: black;
+  }
+
+  .block-active {
+    border-color: aqua;
   }
 </style>
