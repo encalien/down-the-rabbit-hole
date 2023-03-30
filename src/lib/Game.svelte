@@ -47,6 +47,7 @@
   <div class="game-container">
     <!-- Player -->
     <Entity entity={ game.player } { accessorObject } />
+    <button class="btn" disabled={ !game.inProgress } on:click={ endTurn }>End turn</button>
     <Entity entity={ game.enemy } { accessorObject } />
     <!-- Enemy -->
   </div>
@@ -61,7 +62,6 @@
     </div>
     <div id="hand">
       <Hand game={ game } { accessorObject } />
-      <button on:click={ endTurn }>End turn</button>
     </div>
     <div id="discard-pile" class="pile-wrapper">
       <button class="pile" on:click={ () => togglePileShown('discard') }>{ game.discardPile.length }</button>
@@ -128,5 +128,18 @@
     border: 2px solid black;
     border-radius: 3px;
     overflow: hidden;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    background-color: chocolate;
+    font-size: large;
+    border: 2px solid black;
+    border-radius: 3px;
+  }
+  
+  .btn:disabled {
+    background-color: dimgray;
+    color: aliceblue;
   }
 </style>

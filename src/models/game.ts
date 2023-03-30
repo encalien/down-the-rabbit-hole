@@ -11,6 +11,7 @@ export class Game {
   maxHandSize: number = 10;
   gameHandSize: number = 5;
   level: number = 0;
+  inProgress: boolean;
 
   // card piles
   deck: Card[] = [];
@@ -38,6 +39,7 @@ export class Game {
     } else {
       this.setStartingDeck();
       this.startLevel();
+      this.inProgress = true;
     }
   }
 
@@ -67,7 +69,8 @@ export class Game {
    */
   endLevel(): void {
     if (this.level === this.maxLevel) {
-      console.log("Victory!")
+      console.log("Victory!");
+      this.inProgress = false;
     } else {
       console.log("Level complete!\n.....Starting new level");
       this.startLevel();
@@ -207,7 +210,11 @@ export class Game {
     console.log(nextAction)
     for (const effect of nextAction) {
       this[effect.target][effect.action](effect.value);
-      if (this.checkIfGameLost()) return console.log("Game Over");
+      if (this.checkIfGameLost()) {
+        console.log("Game Over");
+        this.inProgress = false;
+        return;
+      }
     }
   }
 }
