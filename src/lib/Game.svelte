@@ -3,6 +3,7 @@
   import PileSidebar from './PileSidebar.svelte';
   import { Game } from '../models/game';
   import Entity from './Entity.svelte';
+  import Header from './Header.svelte';
 
   let game: Game = new Game();
   let isDrawPileSidebarOpen: boolean = false;
@@ -44,6 +45,7 @@
 </script>
 
 <div class="main-container">
+  <Header { game } />
   <div class="game-container">
     <!-- Player -->
     <Entity entity={ game.player } { accessorObject } />
@@ -78,11 +80,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: darkslategray;
   }
 
   .game-container {
-    /* vieport - cards-container height - main-container padding */
-    height: calc(100vh - 240px - 40px); 
+    /* vieport - cards-container height - main-container padding - header height */
+    height: calc(100vh - 240px - 40px - 40px); 
     display: flex;
     gap: 60px;
     justify-content: space-between;
@@ -121,9 +124,9 @@
 
   .pile-sidebar {
     position: fixed;
-    top: 50px;
+    top: 40px;
     z-index: 1;
-    height: calc(100vh - 50px - 200px);
+    height: calc(100vh - 40px - 160px);
     width: 120px;
     border: 2px solid black;
     border-radius: 3px;

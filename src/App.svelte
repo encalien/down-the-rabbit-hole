@@ -4,7 +4,6 @@
 </script>
 
 <main>
-  <Header />
   <Game />
 </main>
 
