@@ -1,14 +1,18 @@
 import { cardCollection } from '../server/cards_collection';
 import type { Card } from '../models/card';
 import { Entity } from './entity';
+import { enemiesCollection } from '../server/enemies_collection';
 
 export class Game {
+  // game config
+  maxLevel: number = 2;
+
   // default new game setup
   maxHandSize: number = 10;
   gameHandSize: number = 5;
   level: number = 0;
 
-  // deck piles
+  // card piles
   deck: Card[] = [];
   hand: Card[] = [];
   drawPile: Card[] = [];
@@ -50,8 +54,8 @@ export class Game {
    * Start new level
    */
   startLevel(): void {
+    this.enemy = enemiesCollection[this.level];
     this.level++;
-    this.enemy = new Entity("Queen of Hearts", 20);
     this.resetPiles();
     this.turn = 0;
     this.handSize = this.gameHandSize;
@@ -62,8 +66,12 @@ export class Game {
    * End current level
    */
   endLevel(): void {
-    console.log("Level complete!\nStarting new level");
-    this.startLevel();
+    if (this.level === this.maxLevel) {
+      console.log("Victory!")
+    } else {
+      console.log("Level complete!\n.....Starting new level");
+      this.startLevel();
+    }
   }
 
   /**
@@ -82,7 +90,12 @@ export class Game {
     if (this.checkIfLevelComplete()) {
       this.endLevel();
     } else {
-      this.startTurn();
+      this.enemy.endTurn();
+      this.processEnemyTurn();
+      if (!this.checkIfGameLost()) {
+        this.player.endTurn();
+        this.startTurn();
+      }
     }
   }
 
@@ -92,6 +105,15 @@ export class Game {
    */
   checkIfLevelComplete(): boolean {
     if (this.enemy.currentHealth <= 0) return true;
+    return false;
+  }
+
+  /**
+   * Check game lose conditions
+   * @returns {boolean} true if game is lost, false if game in progress
+   */
+  checkIfGameLost(): boolean {
+    if (this.player.currentHealth <= 0) return true;
     return false;
   }
 
@@ -174,5 +196,18 @@ export class Game {
       if (this.checkIfLevelComplete()) return this.endTurn();
     }
     this.discardCard(card);
+  }
+  
+  /**
+   * Process enemy turn
+   */
+  processEnemyTurn(): void {
+    const actionIndex = (this.turn - 1) % this.enemy.actions.length;
+    const nextAction = this.enemy.actions[actionIndex];
+    console.log(nextAction)
+    for (const effect of nextAction) {
+      this[effect.target][effect.action](effect.value);
+      if (this.checkIfGameLost()) return console.log("Game Over");
+    }
   }
 }

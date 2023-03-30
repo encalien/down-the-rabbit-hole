@@ -1,13 +1,21 @@
+import type { Effect } from "./card";
+
 class Entity {
   name: string;
   maxHealth: number;
   currentHealth: number;
   block: number = 0;
+  actions: Effect[][] = [];
 
-  constructor(name: string, maxHealth: number) {
+  constructor(name: string, maxHealth: number, actions?: Effect[][]) {
     this.name = name;
     this.maxHealth = maxHealth;
     this.currentHealth = this.maxHealth;
+    this.actions = actions;
+  }
+
+  endTurn(): void {
+    this.resetBlock();
   }
 
   gainBlock(block: number): void {
