@@ -9,9 +9,10 @@ export class Game {
 
   // default new game setup
   maxHandSize: number = 10;
-  gameHandSize: number = 5;
+  defaultHandSize: number = 5;
   level: number = 0;
   inProgress: boolean;
+  defaultActionPoints: number = 3;
 
   // card piles
   deck: Card[] = [];
@@ -22,6 +23,10 @@ export class Game {
   // set per combat
   turn: number;
   handSize: number;
+
+  // set per turn
+  currentMaxActionPoints: number;
+  availableActionPoints: number;
 
   // entities
   player: Entity = new Entity("Alice", 70);
@@ -60,7 +65,9 @@ export class Game {
     this.level++;
     this.resetPiles();
     this.turn = 0;
-    this.handSize = this.gameHandSize;
+    this.handSize = this.defaultHandSize;
+    this.currentMaxActionPoints = this.defaultActionPoints;
+    this.availableActionPoints = this.currentMaxActionPoints;
     this.startTurn();
   }
 
@@ -82,6 +89,7 @@ export class Game {
    */
   startTurn(): void {
     this.turn++;
+    this.availableActionPoints = this.currentMaxActionPoints;
     this.drawHand();
   }
 
@@ -168,6 +176,7 @@ export class Game {
   drawCard(): void {
     const card:Card = this.drawPile.pop();
     this.hand.push(card);
+    card.determinePlayableThisTurn(this.availableActionPoints);
   }
 
   /**
@@ -175,11 +184,12 @@ export class Game {
    * @param {Card} card card to discard
    */
   discardCard(card: Card): void {
+    card.isPlayableThisTurn = false;
     const cardIndex: number = this.hand.indexOf(card);
     this.discardPile.push(card);
     this.hand.splice(cardIndex, 1);
   }
-  
+
   /**
    * Update hand size
    * @param {number} quantity number of cards by which to adjust hand size
@@ -188,19 +198,21 @@ export class Game {
     this.handSize += quantity;
     if (this.handSize > this.maxHandSize) this.handSize = this.maxHandSize;
   }
-    
+
   /**
    * Play card
    * @param {Card} card card to play
    */
   playCard(card: Card): void {
+    this.availableActionPoints -= card.cost;
     for (const effect of card.effects) {
       this[effect.target][effect.action](effect.value);
       if (this.checkIfLevelComplete()) return this.endTurn();
     }
     this.discardCard(card);
+    this.hand.forEach(c => c.determinePlayableThisTurn(this.availableActionPoints));
   }
-  
+
   /**
    * Process enemy turn
    */

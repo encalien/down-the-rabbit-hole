@@ -33,7 +33,7 @@
     background-color: black;
     padding: 0 1rem;
   }
-  
+
   .level {
     color: aliceblue;
     font-weight: bold;

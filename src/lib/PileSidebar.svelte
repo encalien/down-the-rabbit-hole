@@ -7,7 +7,7 @@
 
 <div class="pile-sidebar-wrapper">
   {#each pile as card}
-    <Card { card } playable={ false } />
+    <Card { card } playable={ false }/>
   {/each}
 </div>
 
@@ -39,5 +39,12 @@
 
   .pile-sidebar-wrapper :global(.card-title) {
     font-size: 1rem;
+  }
+
+  .pile-sidebar-wrapper :global(.card-cost) {
+    line-height: 1.3rem;
+    font-size: 1rem;
+    padding: 0 0.3rem;
+    border-radius: 0 0 0.8rem;
 	}
 </style>

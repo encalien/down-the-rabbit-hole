@@ -38,7 +38,7 @@
     flex-direction: column;
     gap: 6px;
   }
-  
+
   .entity-name {
     font-weight: bold;
   }

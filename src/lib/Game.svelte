@@ -140,7 +140,7 @@
     border: 2px solid black;
     border-radius: 3px;
   }
-  
+
   .btn:disabled {
     background-color: dimgray;
     color: aliceblue;
