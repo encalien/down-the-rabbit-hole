@@ -41,6 +41,13 @@
 
   .potions {
     display: flex;
+    width: 100px;
+  }
+
+  .settings {
+    display: flex;
+    width: 100px;
+    justify-content: end;
   }
 
   .icon-wrapper {
