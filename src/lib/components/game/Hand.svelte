@@ -1,6 +1,6 @@
 <script lang="ts">
   import Card from "./Card.svelte";
-  import type { Game } from "../models/game";
+  import type { Game } from "../../models/game";
 
   export let game: Game;
   export let accessorObject: any;

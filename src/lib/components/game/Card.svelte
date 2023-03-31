@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Card } from "../models/card";
-  import type { Game } from "../models/game";
+  import type { Card } from "../../models/card";
+  import type { Game } from "../../models/game";
 
   export let card: Card;
   export let game: Game = null;

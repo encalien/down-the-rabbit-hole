@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Entity } from '../models/entity';
-  import { toSnakeCase } from '../utils';
+	import type { Entity } from '../../models/entity';
+  import { toSnakeCase } from '../../utils';
 
   export let entity: Entity;
   export let accessorObject: any;

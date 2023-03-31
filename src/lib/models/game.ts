@@ -1,7 +1,7 @@
-import { cardCollection } from '../server/cards_collection';
-import type { Card } from '../models/card';
+import { cardCollection } from '../../server/cards_collection';
+import type { Card } from './card';
 import { Entity } from './entity';
-import { enemiesCollection } from '../server/enemies_collection';
+import { enemiesCollection } from '../../server/enemies_collection';
 
 export class Game {
   // game config

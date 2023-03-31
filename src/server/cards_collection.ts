@@ -1,4 +1,4 @@
-import { Type, Card, Target } from "../models/card";
+import { Type, Card, Target } from "../lib/models/card";
 
 export const cardCollection: Card[] = [
   new Card(

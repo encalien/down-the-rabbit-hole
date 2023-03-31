@@ -1,6 +1,6 @@
 <script lang="ts">
   import Card from "./Card.svelte";
-  import type { Card as CardType } from "../models/card";
+  import type { Card as CardType } from "../../models/card";
 
   export let pile: CardType[];
 </script>

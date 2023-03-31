@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Header from "./lib/Header.svelte";
-  import Game from "./lib/Game.svelte";
+  import Game from "./lib/components/game/Game.svelte";
 </script>
 
 <main>

@@ -1,9 +1,9 @@
 <script lang="ts">
   import Hand from './Hand.svelte';
   import PileSidebar from './PileSidebar.svelte';
-  import { Game } from '../models/game';
   import Entity from './Entity.svelte';
   import Header from './Header.svelte';
+  import { Game } from '../../models/game';
 
   let game: Game = new Game();
   let isDrawPileSidebarOpen: boolean = false;
