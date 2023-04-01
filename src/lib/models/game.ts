@@ -35,7 +35,7 @@ export class Game {
   /**
    * Create a game object from the player's cookie, or initialise a new game
    */
-  constructor(storedCurrentGame: string | undefined = undefined) {
+  constructor(storedCurrentGame?: string) {
     if (storedCurrentGame) {
       const currentGame = JSON.parse(storedCurrentGame);
       this.level = currentGame.round;
@@ -61,7 +61,8 @@ export class Game {
    * Start new level
    */
   startLevel(): void {
-    this.enemy = enemiesCollection[this.level];
+    const nextEnemy = enemiesCollection[this.level];
+    this.enemy = new Entity(nextEnemy.name, nextEnemy.maxHealth, nextEnemy.actions);
     this.level++;
     this.resetPiles();
     this.turn = 0;

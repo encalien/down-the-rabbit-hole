@@ -3,9 +3,9 @@
   import PileSidebar from './PileSidebar.svelte';
   import Entity from './Entity.svelte';
   import Header from './Header.svelte';
-  import { Game } from '../../models/game';
+  import type { Game } from '../../models/game';
 
-  let game: Game = new Game();
+  export let game: Game;
   let isDrawPileSidebarOpen: boolean = false;
   let isDiscardPileSidebarOpen: boolean = false;
 
@@ -45,7 +45,7 @@
 </script>
 
 <div class="main-container">
-  <Header { game } />
+  <Header { game } on:openMenu />
   <div class="game-container">
     <!-- Player -->
     <Entity entity={ game.player } { accessorObject } />
@@ -131,18 +131,5 @@
     border: 2px solid black;
     border-radius: 3px;
     overflow: hidden;
-  }
-
-  .btn {
-    padding: 0.5rem 1rem;
-    background-color: chocolate;
-    font-size: large;
-    border: 2px solid black;
-    border-radius: 3px;
-  }
-
-  .btn:disabled {
-    background-color: dimgray;
-    color: aliceblue;
   }
 </style>

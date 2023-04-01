@@ -35,6 +35,19 @@ body {
   display: none !important;
 }
 
+.btn {
+  padding: 0.5rem 1rem;
+  background-color: chocolate;
+  font-size: large;
+  border: 2px solid black;
+  border-radius: 3px;
+}
+
+.btn:disabled {
+  background-color: dimgray;
+  color: aliceblue;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

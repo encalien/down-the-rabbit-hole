@@ -1,7 +1,13 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import type { Game } from "../../models/game";
 
   export let game: Game;
+  const dispatch = createEventDispatcher();
+
+  function openMainMenu():void {
+    dispatch('openMenu', true)
+  }
 </script>
 
 <div id="header" class="header">
@@ -20,7 +26,7 @@
     { game.level }
   </div>
   <div class="settings">
-    <button class="icon-btn"><img src="/src/assets/gear_icon.png" alt="Settings"></button>
+    <button class="icon-btn" on:click={ openMainMenu }><img src="/src/assets/gear_icon.png" alt="Settings"></button>
   </div>
 </div>
 
