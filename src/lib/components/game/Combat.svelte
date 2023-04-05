@@ -2,7 +2,6 @@
   import Hand from './Hand.svelte';
   import PileSidebar from './PileSidebar.svelte';
   import Entity from './Entity.svelte';
-  import Header from './Header.svelte';
   import type { Game } from '../../models/game';
 
   export let game: Game;

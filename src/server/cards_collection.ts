@@ -1,4 +1,5 @@
-import { Type, Card, Target } from "../lib/models/card";
+import { Card } from "../lib/models/card";
+import { Target, Type } from "../lib/models/enums";
 
 export const cardCollection: Card[] = [
   new Card(
@@ -20,7 +21,7 @@ export const cardCollection: Card[] = [
     ]
   ),
   new Card(
-    Type.SKILL,
+    Type.POWER,
     "Deep pockets",
     "Until end of combat draw one more card at the start of turn.",
     3,

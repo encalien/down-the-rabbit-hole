@@ -1,14 +1,4 @@
-export enum Type {
-  ATTACK = 'attack',
-  SKILL = 'skill',
-  POWER = 'power'
-}
-
-export enum Target {
-  PLAYER = 'player',
-  ENEMY = 'enemy',
-  GAME = 'game'
-}
+import type { Target, Type } from "./enums";
 
 export interface Effect {
   action: string; // corresponds to method name

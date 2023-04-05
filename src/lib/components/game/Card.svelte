@@ -6,6 +6,7 @@
   export let game: Game = null;
   export let playable: boolean = true;
   export let accessorObject: any = null;
+  export let className: any = null;
 
   function playCard(): void {
     game.playCard(card);
@@ -13,7 +14,7 @@
   }
 </script>
 
-<div class="card { card.type }">
+<div class="card { card.type } { className }">
   <div class="card-cost" class:active={ card.cost <= game?.availableActionPoints }>{ card.cost }</div>
   <div class="card-title">{ card.title }</div>
   <div class="card-description">{ card.description }</div>
@@ -68,5 +69,9 @@
 
   .active {
     background-color: chocolate;
+  }
+
+  .card-selected {
+    border: 3px solid chocolate;
   }
 </style>

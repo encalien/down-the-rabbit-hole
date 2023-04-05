@@ -1,5 +1,5 @@
-import { Target, type Effect } from "../lib/models/card";
 import { Entity } from "../lib/models/entity";
+import { Target } from "../lib/models/enums";
 
 export const enemiesCollection: Entity[] = [
   new Entity(

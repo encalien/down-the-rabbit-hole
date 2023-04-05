@@ -3,6 +3,7 @@ import type { Card } from './card';
 import { Entity } from './entity';
 import { enemiesCollection } from '../../server/enemies_collection';
 import { randomize } from '../utils';
+import { Phase } from './enums';
 
 export class Game {
   // game config
@@ -33,6 +34,8 @@ export class Game {
   player: Entity = new Entity("Alice", 70);
   enemy: Entity;
 
+  phase: Phase;
+
   /**
    * Create a game object from the player's cookie, or initialise a new game
    */
@@ -62,9 +65,11 @@ export class Game {
    * Start new level
    */
   startLevel(): void {
+    console.log(".....Starting new level");
     const nextEnemy = enemiesCollection[this.level];
     this.enemy = new Entity(nextEnemy.name, nextEnemy.maxHealth, nextEnemy.actions);
     this.level++;
+    this.phase = Phase.COMBAT;
     this.resetPiles();
     this.turn = 0;
     this.handSize = this.defaultHandSize;
@@ -81,8 +86,8 @@ export class Game {
       console.log("Victory!");
       this.inProgress = false;
     } else {
-      console.log("Level complete!\n.....Starting new level");
-      this.startLevel();
+      console.log("Level complete!");
+      this.phase = Phase.REWARD;
     }
   }
 
@@ -230,5 +235,18 @@ export class Game {
         return;
       }
     }
+  }
+
+  processReward(): void {
+
+  }
+
+  addCardToDeck(card: Card): void {
+    this.deck.push(card);
+  }
+
+  removeCardFromDeck(card: Card): void {
+    const cardInd = this.deck.findIndex(c => c === card);
+    this.deck.splice(cardInd, 1);
   }
 }

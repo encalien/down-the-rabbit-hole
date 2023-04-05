@@ -2,6 +2,8 @@
   import Header from './Header.svelte';
   import Combat from './Combat.svelte';
   import type { Game } from '../../models/game';
+    import RewardScreen from './RewardScreen.svelte';
+    import { Phase } from '../../models/enums';
 
   export let game: Game;
 
@@ -16,7 +18,11 @@
 
 <div class="main-container">
   <Header { game } on:openMenu />
-  <Combat { game } { accessorObject } />
+  {#if game.phase === Phase.COMBAT}
+    <Combat { game } { accessorObject } />
+  {:else if game.phase === Phase.REWARD}
+    <RewardScreen { game } { accessorObject } />
+  {/if}
 </div>
 
 <style>
