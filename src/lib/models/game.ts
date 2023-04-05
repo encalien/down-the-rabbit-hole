@@ -151,7 +151,8 @@ export class Game {
    */
   shuffleDeck(): void {
     const discardPile: Card[] = randomize(this.discardPile);
-    this.drawPile = Object.assign(discardPile, this.drawPile);
+    const drawPile: Card[] = this.drawPile;
+    this.drawPile = discardPile.concat(drawPile);
     this.discardPile = [];
   }
 
@@ -241,10 +242,18 @@ export class Game {
 
   }
 
+  /**
+   * Add new card to deck
+   * @param {Card} card card to add
+   */
   addCardToDeck(card: Card): void {
     this.deck.push(card);
   }
 
+  /**
+   * Remove a card from deck
+   * @param {Card} card card to remove
+   */
   removeCardFromDeck(card: Card): void {
     const cardInd = this.deck.findIndex(c => c === card);
     this.deck.splice(cardInd, 1);

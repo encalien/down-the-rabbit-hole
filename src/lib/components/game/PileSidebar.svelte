@@ -5,10 +5,17 @@
 
   export let pile: CardType[];
   export let showInOrder: boolean;
+  export let turn: number;
+  let pileToshow: CardType[];
+
+  function preparePileToShow():void {
+    pileToshow = showInOrder ? pile : randomize(pile);
+  }
+  $: turn, preparePileToShow();
 </script>
 
 <div class="pile-sidebar-wrapper">
-  {#each (showInOrder ? pile : randomize(pile)) as card}
+  {#each pileToshow as card}
     <Card { card } playable={ false }/>
   {/each}
 </div>
