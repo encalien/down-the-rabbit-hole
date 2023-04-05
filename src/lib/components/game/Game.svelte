@@ -56,7 +56,7 @@
   <!-- Cards -->
   <div class="cards-container">
     <div id="draw-pile-sidebar" class="pile-sidebar" class:hidden={!isDrawPileSidebarOpen}>
-      <PileSidebar pile={ game.drawPile } />
+      <PileSidebar pile={ game.drawPile } showInOrder={ false } />
     </div>
     <div id="draw-pile" class="pile-wrapper">
       <button class="pile" on:click={ () => togglePileShown('draw') }>{ game.drawPile.length }</button>
@@ -70,7 +70,7 @@
       <div>Discard Pile</div>
     </div>
     <div id="discard-pile-sidebar" class="pile-sidebar" class:hidden={!isDiscardPileSidebarOpen}>
-      <PileSidebar pile={ game.discardPile } />
+      <PileSidebar pile={ game.discardPile } showInOrder={ true }/>
     </div>
   </div>
 </div>

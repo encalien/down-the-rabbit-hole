@@ -2,6 +2,7 @@ import { cardCollection } from '../../server/cards_collection';
 import type { Card } from './card';
 import { Entity } from './entity';
 import { enemiesCollection } from '../../server/enemies_collection';
+import { randomize } from '../utils';
 
 export class Game {
   // game config
@@ -144,7 +145,7 @@ export class Game {
    * Shuffle discard pile into draw pile
    */
   shuffleDeck(): void {
-    const discardPile: Card[] = this.discardPile.sort(() => Math.random() - 0.5);
+    const discardPile: Card[] = randomize(this.discardPile);
     this.drawPile = Object.assign(discardPile, this.drawPile);
     this.discardPile = [];
   }

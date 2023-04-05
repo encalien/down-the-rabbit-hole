@@ -1,12 +1,14 @@
 <script lang="ts">
   import Card from "./Card.svelte";
   import type { Card as CardType } from "../../models/card";
+  import { randomize } from "../../utils";
 
   export let pile: CardType[];
+  export let showInOrder: boolean;
 </script>
 
 <div class="pile-sidebar-wrapper">
-  {#each pile as card}
+  {#each (showInOrder ? pile : randomize(pile)) as card}
     <Card { card } playable={ false }/>
   {/each}
 </div>
@@ -14,7 +16,7 @@
 <style>
   .pile-sidebar-wrapper {
     background-color: rgba(0, 0, 0, 0.3);
-    width: 100px;
+    width: 120px;
     height: 100%;
     padding: 10px;
     padding-right: 60px;
