@@ -36,6 +36,7 @@ body {
 }
 
 .btn {
+  width: max-content;
   padding: 0.5rem 1rem;
   background-color: chocolate;
   font-size: large;
