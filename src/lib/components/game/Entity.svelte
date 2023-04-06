@@ -4,13 +4,18 @@
 
   export let entity: Entity;
   export let accessorObject: any;
+
+  let currentHealthPercentage: number; 
+
+  $:entity, currentHealthPercentage = (entity.currentHealth / entity.maxHealth) * 100;
 </script>
 
 <div id="entity" class="entity">
   <img src="/src/assets/{ toSnakeCase(entity.name) }.png" alt="{ entity.name }" class="entity-image" draggable="false"/>
   <div class="entity-details">
     <div class="entity-name">{ entity.name }</div>
-    <div class="entity-healthbar" class:block-active={ entity.block }>
+    <div class="entity-healthbar" class:block-active={ entity.block } 
+         style="background: linear-gradient(to right, red {currentHealthPercentage}%, black {currentHealthPercentage}%)">
       <span class="block-display" class:block-active={ entity.block }>{ entity.block }</span>
       { entity.currentHealth }/{ entity.maxHealth }
     </div>
@@ -44,8 +49,6 @@
   }
 
   .entity-healthbar {
-    /* TODO: make healthbar color reflect hitpoints */
-    background-color: red;
     font-size: 0.8rem;
     font-weight: bold;
     position: relative;
