@@ -1,9 +1,9 @@
 <script lang="ts">
   import Header from './Header.svelte';
   import Combat from './Combat.svelte';
+  import RewardScreen from './RewardScreen.svelte';
   import type { Game } from '../../models/game';
-    import RewardScreen from './RewardScreen.svelte';
-    import { Phase } from '../../models/enums';
+  import { Phase } from '../../models/enums';
 
   export let game: Game;
 
