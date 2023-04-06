@@ -238,10 +238,6 @@ export class Game {
     }
   }
 
-  processReward(): void {
-
-  }
-
   /**
    * Add new card to deck
    * @param {Card} card card to add

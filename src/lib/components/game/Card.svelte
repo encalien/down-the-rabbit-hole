@@ -15,17 +15,25 @@
 </script>
 
 <div class="card { card.type } { className }">
-  <div class="card-cost" class:active={ card.cost <= game?.availableActionPoints }>{ card.cost }</div>
-  <div class="card-title">{ card.title }</div>
-  <div class="card-description">{ card.description }</div>
-  {#if playable && card.isPlayableThisTurn}
-    <button on:click={ playCard }>Play</button>
-  {/if}
+  <div class="card-wrapper">
+    <div class="card-title">
+      <div class="card-cost" class:active={ card.cost <= game?.availableActionPoints }>{ card.cost }</div>
+      { card.title }
+    </div>
+    <div class="card-description">{ card.description }</div>
+    {#if playable && card.isPlayableThisTurn}
+      <div>
+        <button on:click={ playCard }>Play</button>
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
   .card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
     width: 120px;
     height: 180px;
     padding: 0.5rem;
@@ -48,23 +56,42 @@
     background-color: khaki;
   }
 
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-top: 1rem solid black;
+    border-image: linear-gradient(to right, black, chocolate, black) 1;
+    height: 100%;
+    padding: 0.3rem;
+  }
+
   .card-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+    line-height: 2;
+    height: 2rem;
+  }
+
+  .card-description {
+    font-size: 0.8rem;
+    height: 60%;
   }
 
   .card-cost {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 2px;
+    left: calc(60px - 0.3rem);
+    width: 1.5rem;
+    height: 1.5rem;
     background-color: dimgray;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
-    padding: 0 0.5rem;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
-    border-radius: 0 0 1rem;
+    border: 2px solid black;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .active {

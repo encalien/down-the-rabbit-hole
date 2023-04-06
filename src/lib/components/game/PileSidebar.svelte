@@ -44,16 +44,29 @@
     position: relative;
     z-index: 3;
     opacity: 0.7;
+    padding: 0.3rem;
 	}
 
+  .pile-sidebar-wrapper :global(.card-wrapper) {
+    padding: 0.3rem;
+    border-top-width: 0.8rem;
+  }
+
   .pile-sidebar-wrapper :global(.card-title) {
-    font-size: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    height: 1.6rem;
+  }
+
+  .pile-sidebar-wrapper :global(.card-description) {
+    font-size: 0.6rem;
   }
 
   .pile-sidebar-wrapper :global(.card-cost) {
-    line-height: 1.3rem;
-    font-size: 1rem;
-    padding: 0 0.3rem;
-    border-radius: 0 0 0.8rem;
+    width: 1rem;
+    height: 1rem;
+    left: calc(40px - 0.3rem);
+    font-size: 0.8rem;
+    top: 1px;
 	}
 </style>
