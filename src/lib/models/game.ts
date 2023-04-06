@@ -231,8 +231,8 @@ export class Game {
     for (const effect of nextAction) {
       this[effect.target][effect.action](effect.value);
       if (this.checkIfGameLost()) {
-        console.log("Game Over");
         this.inProgress = false;
+        this.phase = Phase.END;
         return;
       }
     }

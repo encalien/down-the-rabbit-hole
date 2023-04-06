@@ -26,13 +26,18 @@
     const storedGameJSON: string = '';
     return new GameType(storedGameJSON);
   }
+
+  function endGame(): void {
+    game = null;
+    isMainMenuShown = true;
+  }
 </script>
 
 <main>
   {#if isMainMenuShown}
     <Menu bind:isMainMenuShown={ isMainMenuShown } on:playGame={ playGame } />
   {:else}
-    <Game {game} on:openMenu={ openMainMenu } />
+    <Game {game} on:openMenu={ openMainMenu } on:endGame={ endGame } />
   {/if}
 </main>
 

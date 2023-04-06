@@ -12,5 +12,6 @@ export enum Target {
 
 export enum Phase {
   COMBAT = 'combat',
-  REWARD = 'reward'
+  REWARD = 'reward',
+  END = 'end'
 }
