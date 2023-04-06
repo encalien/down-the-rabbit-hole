@@ -15,6 +15,7 @@ export class Game {
   level: number = 0;
   inProgress: boolean;
   defaultActionPoints: number = 3;
+  isWin: boolean = false;
 
   // card piles
   deck: Card[] = [];
@@ -83,8 +84,9 @@ export class Game {
    */
   endLevel(): void {
     if (this.level === this.maxLevel) {
-      console.log("Victory!");
+      this.isWin = true;
       this.inProgress = false;
+      this.phase = Phase.END;
     } else {
       console.log("Level complete!");
       this.phase = Phase.REWARD;

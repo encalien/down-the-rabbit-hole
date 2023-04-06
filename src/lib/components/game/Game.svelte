@@ -28,7 +28,9 @@
     <RewardScreen { game } { accessorObject } />
   {:else if game.phase === Phase.END}
     <div class="end-game-wrapper">
-      <div class="game-over" in:fade={{ duration: 1000 }}>GAME OVER</div>
+      <div class="{ game.isWin ? 'victory' : 'game-over' }" in:fade={{ duration: 1000 }}>
+        { game.isWin ? "VICTORY!" : "GAME OVER" }
+      </div>
       <button class="btn" on:click={ () => dispatch('endGame', true) }>Continue</button>
     </div>
   {/if}
@@ -55,5 +57,11 @@
     font-size: 4rem;
     font-weight: bold;
     color: red;
+  }
+
+  .victory {
+    font-size: 4rem;
+    font-weight: bold;
+    color: chocolate;
   }
 </style>
