@@ -52,6 +52,7 @@
     width: 300px;
     border: 3px solid black;
     border-radius: 0.8rem;
+    transition: border-color 0.3s ease-out;
   }
 
   .block-display {
@@ -67,6 +68,7 @@
     justify-content: center;
     align-items: center;
     color: black;
+    transition: border-color 0.3s ease-out;
   }
 
   .block-active {
