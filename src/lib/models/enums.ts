@@ -15,3 +15,11 @@ export enum Phase {
   REWARD = 'reward',
   END = 'end'
 }
+
+export enum EffectAction {
+  TAKE_DAMAGE = 'takeDamage',
+  GAIN_BLOCK = 'gainBlock',
+  UPDATE_HAND_SIZE = 'updateHandSize',
+  UPDATE_STRENGTH = 'updateStrength',
+  ESCAPE = 'escape',
+}

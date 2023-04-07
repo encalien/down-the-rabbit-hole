@@ -1,5 +1,5 @@
 import { Card } from "../lib/models/card";
-import { Target, Type } from "../lib/models/enums";
+import { EffectAction, Target, Type } from "../lib/models/enums";
 
 export const cardCollection: Card[] = [
   new Card(
@@ -9,7 +9,7 @@ export const cardCollection: Card[] = [
     "Deal 6 damage.",
     1,
     [
-      { action: "takeDamage", value: 6, target: Target.ENEMY }
+      { action: EffectAction.TAKE_DAMAGE, value: 6, target: Target.ENEMY }
     ]
   ),
   new Card(
@@ -19,7 +19,7 @@ export const cardCollection: Card[] = [
     "Gain 5 block.",
     2,
     [
-      { action: "gainBlock", value: 5, target: Target.PLAYER }
+      { action: EffectAction.GAIN_BLOCK, value: 5, target: Target.PLAYER }
     ]
   ),
   new Card(
@@ -29,7 +29,7 @@ export const cardCollection: Card[] = [
     "Until end of combat draw one more card at the start of turn.",
     3,
     [
-      { action: "updateHandSize", value: 1, target: Target.GAME }
+      { action: EffectAction.UPDATE_HAND_SIZE, value: 1, target: Target.GAME }
     ]
   )
 ]
