@@ -7,6 +7,7 @@ export interface Effect {
 }
 
 export class Card {
+  id: number;
   type: Type;
   title: string;
   description: string;
@@ -15,7 +16,8 @@ export class Card {
   isPlayableThisTurn: boolean = false;
   cost: number;
 
-  constructor(type: Type, title: string, description: string, cost: number, effects: Effect[]) {
+  constructor(id: number, type: Type, title: string, description: string, cost: number, effects: Effect[]) {
+    this.id = id;
     this.type = type;
     this.title = title;
     this.description = description;

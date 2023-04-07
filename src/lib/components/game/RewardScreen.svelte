@@ -1,7 +1,7 @@
 <script lang="ts">
   import Card from './Card.svelte';
   import type { Game } from '../../models/game';
-  import { Card as CardType } from '../../models/card';
+  import type { Card as CardType } from '../../models/card';
   import { cardCollection } from '../../../server/cards_collection';
 
   export let game: Game;
@@ -19,8 +19,8 @@
     selectedRewardType = "add_card";
     for (let i = 0; i < n; i++) {
       const randIndex = Math.floor(Math.random() * cardCollection.length);
-      const card = cardCollection[randIndex]; 
-      availableCards.push(new CardType(card.type, card.title, card.description, card.cost, card.effects));
+      const card: CardType = cardCollection[randIndex]; 
+      availableCards.push(card);
     }
     availableCards = availableCards;
   }

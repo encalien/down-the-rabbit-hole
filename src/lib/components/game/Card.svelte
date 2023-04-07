@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fly } from "svelte/transition";
   import type { Card } from "../../models/card";
   import type { Game } from "../../models/game";
 
@@ -14,11 +15,11 @@
   }
 </script>
 
-<div class="card { card.type } { className }">
+<div class="card { card.type } { className }" out:fly={ {y: -100, duration: 400 } }>
   <div class="card-wrapper">
     <div class="card-title">
       <div class="card-cost" class:active={ card.cost <= game?.availableActionPoints }>{ card.cost }</div>
-      { card.title }
+      { card.title } { card.id }
     </div>
     <div class="card-description">{ card.description }</div>
     {#if playable && card.isPlayableThisTurn}

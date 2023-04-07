@@ -1,5 +1,5 @@
 import { cardCollection } from '../../server/cards_collection';
-import type { Card } from './card';
+import { Card } from './card';
 import { Entity } from './entity';
 import { enemiesCollection } from '../../server/enemies_collection';
 import { randomize } from '../utils';
@@ -139,10 +139,11 @@ export class Game {
    * Set starting deck
    */
   setStartingDeck(): void {
+    const strike = cardCollection.find(card => card.title === "Strike");
+    const defend = cardCollection.find(card => card.title === "Defend");
     for (let i = 0; i < 5; i++) {
-      const strike = cardCollection.find(card => card.title === "Strike");
-      const defend = cardCollection.find(card => card.title === "Defend");
-      this.deck.push(strike, defend);
+      this.addCardToDeck(strike);
+      this.addCardToDeck(defend)
     }
   }
 
@@ -243,7 +244,9 @@ export class Game {
    * @param {Card} card card to add
    */
   addCardToDeck(card: Card): void {
-    this.deck.push(card);
+    this.deck.push(
+      new Card(this.deck.length, card.type, card.title, card.description, card.cost, card.effects)
+    );
   }
 
   /**

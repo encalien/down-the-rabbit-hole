@@ -8,8 +8,8 @@
 
 <div id="hand">
   <div class="hand-cards">
-    {#each game.hand as card}
-      <Card { card } { game } { accessorObject } />
+    {#each game.hand as card (card.id)}
+      <Card { card } { game } { accessorObject }/>
     {/each}
   </div>
   <div class="action-point-wrapper">

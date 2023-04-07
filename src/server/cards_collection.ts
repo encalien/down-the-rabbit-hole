@@ -3,6 +3,7 @@ import { Target, Type } from "../lib/models/enums";
 
 export const cardCollection: Card[] = [
   new Card(
+    null,
     Type.ATTACK, 
     "Strike", 
     "Deal 6 damage.",
@@ -12,6 +13,7 @@ export const cardCollection: Card[] = [
     ]
   ),
   new Card(
+    null,
     Type.SKILL,
     "Defend",
     "Gain 5 block.",
@@ -21,6 +23,7 @@ export const cardCollection: Card[] = [
     ]
   ),
   new Card(
+    null,
     Type.POWER,
     "Deep pockets",
     "Until end of combat draw one more card at the start of turn.",
