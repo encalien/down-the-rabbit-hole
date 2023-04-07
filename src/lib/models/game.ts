@@ -3,7 +3,7 @@ import { Card } from './card';
 import { Entity } from './entity';
 import { enemiesCollection } from '../../server/enemies_collection';
 import { randomize } from '../utils';
-import { Phase } from './enums';
+import { Phase, Target } from './enums';
 
 export class Game {
   // game config
@@ -215,7 +215,8 @@ export class Game {
   playCard(card: Card): void {
     this.availableActionPoints -= card.cost;
     for (const effect of card.effects) {
-      this[effect.target][effect.action](effect.value);
+      const target = effect.target === Target.GAME ? this : this[effect.target];
+      target[effect.action](effect.value);
       if (this.checkIfLevelComplete()) return this.endTurn();
     }
     this.discardCard(card);
