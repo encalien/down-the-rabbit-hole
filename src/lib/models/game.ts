@@ -271,6 +271,7 @@ export class Game {
    * @param {Potion} potion potion to add
    */
   addPotion(potion: Potion): void {
+    if (this.potions.length === this.maxPotionSlots) return console.log("potion slots full");
     const nextId = getNextId(this.potions);
     this.potions.push(
       new Potion(nextId, potion.title, potion.description, potion.effects)

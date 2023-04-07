@@ -7,7 +7,7 @@
   export let game: Game = null;
   export let playable: boolean = true;
   export let accessorObject: any = null;
-  export let className: any = null;
+  export let className: string = null;
 
   function playCard(): void {
     game.playCard(card);

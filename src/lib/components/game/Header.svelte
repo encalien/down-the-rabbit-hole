@@ -16,7 +16,9 @@
 <div id="header" class="header">
   <div class="potions">
     {#each Array(game.maxPotionSlots) as ps, index (index)}
-      <Potion { game } { accessorObject } potion={ game.potions[index] } />
+      <div class="icon-wrapper">
+        <Potion { game } { accessorObject } potion={ game.potions[index] } usable={ true } />
+      </div>
     {/each}
   </div>
   <div class="level">
@@ -51,6 +53,10 @@
     display: flex;
     width: 100px;
     justify-content: end;
+  }
+
+  .icon-wrapper {
+    width: 30px;
   }
 
   .icon-btn {

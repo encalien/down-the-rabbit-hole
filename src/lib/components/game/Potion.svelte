@@ -5,6 +5,7 @@
 
   export let game: Game;
   export let potion: Potion = null;
+  export let usable: boolean = false;
   export let accessorObject: any;
 
   function usePotion(): void {
@@ -15,22 +16,16 @@
 
 
 <div id="potion" class="potion">
-  <div class="icon-wrapper">
-    <button class="icon-btn" disabled={ !potion } on:click={ usePotion }>
-      {#if potion}
-        <img src="/src/assets/{ toSnakeCase(potion.title) }.png" alt="{ potion.title }" class="potion-image" draggable="false"/>
-      {:else}
-        <img src="/src/assets/bottle_silhouette.png" alt="Potion Slot">
-      {/if}
-    </button>
-  </div>
+  <button class="icon-btn" disabled={ !usable || !potion } on:click={ usePotion }>
+    {#if potion}
+      <img src="/src/assets/{ toSnakeCase(potion.title) }.png" alt="{ potion.title }" class="potion-image" draggable="false" />
+    {:else}
+      <img src="/src/assets/bottle_silhouette.png" class="potion-image" alt="Potion Slot">
+    {/if}
+  </button>
 </div>
 
 <style>
-  .icon-wrapper {
-    width: 30px;
-  }
-
   .icon-btn {
     background-color: transparent;
     border: none;
@@ -38,13 +33,12 @@
     cursor: pointer;
     padding: 0;
   }
-
+  
   .icon-btn:disabled {
     cursor: initial;
   }
 
-  .icon-btn > img {
+  .potion-image {
     height: 30px;
-    color: aliceblue;
   }
 </style>

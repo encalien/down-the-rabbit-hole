@@ -1,19 +1,19 @@
 <script lang="ts">
   import Card from './Card.svelte';
+  import Potion from './Potion.svelte';
   import type { Game } from '../../models/game';
   import type { Card as CardType } from '../../models/card';
+  import type { Potion as PotionType } from '../../models/potion';
   import { cardCollection } from '../../../server/cards_collection';
+  import { potionCollection } from '../../../server/potions_collection';
 
   export let game: Game;
   export let accessorObject: any;
   let availableCards: CardType[] = [];
   let selectedCard: CardType;
   let selectedRewardType: string;
-
-  // function endTurn() {
-  //   game.endTurn();
-  //   accessorObject.updateGame(game);
-  // }
+  let potion: PotionType;
+  let selectedPotion: PotionType;
 
   function showAvaliableCards(n: number): void {
     selectedRewardType = "add-card";
@@ -29,9 +29,21 @@
     selectedRewardType = "remove-card";
     availableCards = game.deck;
   }
+  
+  function showPotions(n): void {
+    selectedRewardType = "add-potion";
+    for (let i = 0; i < n; i++) {
+      const randIndex = Math.floor(Math.random() * potionCollection.length);
+      potion = potionCollection[randIndex]; 
+    }
+  }
 
   function selectCard(card: CardType): void {
     selectedCard = card;
+  }
+
+  function selectPotion(): void {
+    selectedPotion = potion;
   }
   
   function processRewards() {
@@ -42,20 +54,23 @@
         break;
       case "remove-card":
         game.removeCardFromDeck(selectedCard);
+        availableCards = [];
         break;
       case "add-potion":
+        game.addPotion(selectedPotion);
+        potion = null;
         break;
     }
-    game.startLevel();
     accessorObject.updateGame(game);
+    game.startLevel();
   }
 </script>
 
 <div class="main-container">
-  <div class="rewards-container" class:hidden={ availableCards.length }>
+  <div class="rewards-container" class:hidden={ availableCards.length || potion }>
     <button class="btn" on:click={ () => showAvaliableCards(3) }>Add a card</button>
     <button class="btn" on:click={ showDeckCards }>Remove a card</button>
-    <button class="btn">Take a potion</button>
+    <button class="btn" on:click={ () => showPotions(1) }>Take a potion</button>
   </div>
   <div class="overflow-container">
     <div class="{ selectedRewardType }">
@@ -64,6 +79,11 @@
           <Card { card } { accessorObject } playable={ false } className={ selectedCard === card ? 'card-selected' : '' } />
         </div>
       {/each}
+      {#if potion}
+        <div on:click={ selectPotion } on:keydown={ selectPotion }>
+          <Potion { game } { potion } { accessorObject } />
+        </div>
+      {/if}
     </div>
   </div>
   <button class="btn" on:click={ processRewards }>Continue</button>
@@ -107,11 +127,26 @@
     width: calc(100% + 20px);
   }
 
+  .add-potion {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    padding: 20px 160px;
+  }
+
   .rewards-container > .btn {
     flex: 1 0 0;
   }
 
-  .rewards-container :global(.card) {
+  .overflow-container :global(.card) {
     cursor: pointer;
+	}
+
+  .overflow-container :global(.potion > button) {
+    cursor: pointer;
+	}
+
+  .overflow-container :global(.potion-image) {
+    height: 100px;
 	}
 </style>
