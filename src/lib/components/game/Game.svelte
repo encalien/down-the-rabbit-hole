@@ -28,8 +28,8 @@
     <RewardScreen { game } { accessorObject } />
   {:else if game.phase === Phase.END}
     <div class="end-game-wrapper">
-      <div class="{ game.isWin ? 'victory' : 'game-over' }" in:fade={{ duration: 1000 }}>
-        { game.isWin ? "VICTORY!" : "GAME OVER" }
+      <div class="{ game.player.currentHealth > 0 ? 'victory' : 'game-over' }" in:fade={{ duration: 1000 }}>
+        { game.player.currentHealth > 0 ? "VICTORY!" : "GAME OVER" }
       </div>
       <button class="btn" on:click={ () => dispatch('endGame', true) }>Continue</button>
     </div>
