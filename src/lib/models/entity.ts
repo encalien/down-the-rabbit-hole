@@ -1,4 +1,4 @@
-import type { Effect } from "./card";
+import type { Effect } from "./effect";
 
 class Entity {
   name: string;

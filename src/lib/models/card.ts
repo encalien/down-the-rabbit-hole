@@ -1,10 +1,5 @@
-import type { Target, Type } from "./enums";
-
-export interface Effect {
-  action: string; // corresponds to method name
-  value: number;
-  target: Target;
-}
+import type { Effect } from "./effect";
+import type { Type } from "./enums";
 
 export class Card {
   id: number;
