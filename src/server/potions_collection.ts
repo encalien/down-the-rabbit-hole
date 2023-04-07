@@ -15,7 +15,7 @@ export const potionCollection: Potion[] = [
     "Drink me",
     "Shrink yourself. Escape this fight. Collect no rewards.",
     [
-      { action: EffectAction.ESCAPE, value: 1, target: Target.PLAYER }
+      { action: EffectAction.ESCAPE, value: 1, target: Target.GAME }
     ]
   )
 ]

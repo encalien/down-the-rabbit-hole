@@ -67,25 +67,29 @@
 </script>
 
 <div class="main-container">
-  <div class="rewards-container" class:hidden={ availableCards.length || potion }>
-    <button class="btn" on:click={ () => showAvaliableCards(3) }>Add a card</button>
-    <button class="btn" on:click={ showDeckCards }>Remove a card</button>
-    <button class="btn" on:click={ () => showPotions(1) }>Take a potion</button>
-  </div>
-  <div class="overflow-container">
-    <div class="{ selectedRewardType }">
-      {#each availableCards as card}
-        <div on:click={ () => selectCard(card) } on:keydown={ () => selectCard(card) }>
-          <Card { card } { accessorObject } playable={ false } className={ selectedCard === card ? 'card-selected' : '' } />
-        </div>
-      {/each}
-      {#if potion}
-        <div on:click={ selectPotion } on:keydown={ selectPotion }>
-          <Potion { game } { potion } { accessorObject } />
-        </div>
-      {/if}
+  {#if game.disableRewards}
+    <p>You escaped...</p>
+  {:else}
+    <div class="rewards-container" class:hidden={ availableCards.length || potion }>
+      <button class="btn" on:click={ () => showAvaliableCards(3) }>Add a card</button>
+      <button class="btn" on:click={ showDeckCards }>Remove a card</button>
+      <button class="btn" on:click={ () => showPotions(1) }>Take a potion</button>
     </div>
-  </div>
+    <div class="overflow-container">
+      <div class="{ selectedRewardType }">
+        {#each availableCards as card}
+          <div on:click={ () => selectCard(card) } on:keydown={ () => selectCard(card) }>
+            <Card { card } { accessorObject } playable={ false } className={ selectedCard === card ? 'card-selected' : '' } />
+          </div>
+        {/each}
+        {#if potion}
+          <div on:click={ selectPotion } on:keydown={ selectPotion }>
+            <Potion { game } { potion } { accessorObject } />
+          </div>
+        {/if}
+      </div>
+    </div>
+  {/if}
   <button class="btn" on:click={ processRewards }>Continue</button>
 </div>
 

@@ -40,6 +40,7 @@ export class Game {
   enemy: Entity;
 
   phase: Phase;
+  disableRewards: boolean = false;
 
   /**
    * Create a game object from the player's cookie, or initialise a new game
@@ -75,6 +76,7 @@ export class Game {
     this.enemy = new Entity(nextEnemy.name, nextEnemy.maxHealth, nextEnemy.actions);
     this.level++;
     this.phase = Phase.COMBAT;
+    this.disableRewards = false;
     this.resetPiles();
     this.turn = 0;
     this.handSize = this.defaultHandSize;
@@ -298,5 +300,10 @@ export class Game {
       if (this.checkIfLevelComplete()) return this.endTurn();
     }
     this.removePotion(potion);
+  }
+
+  escape(n): void {
+    this.disableRewards = true;
+    this.endLevel();
   }
 }

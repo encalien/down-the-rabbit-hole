@@ -8,7 +8,6 @@ class Entity {
   actions: Effect[][] = [];
 
   strength: number = 0;
-  willEscape: boolean = false;
 
   constructor(name: string, maxHealth: number, actions?: Effect[][]) {
     this.name = name;
@@ -59,10 +58,6 @@ class Entity {
 
   updateStrength(amount: number): void {
     this.strength += amount;
-  }
-
-  escape(willEscape: number): void {
-    this.willEscape = !!willEscape;
   }
 }
 
