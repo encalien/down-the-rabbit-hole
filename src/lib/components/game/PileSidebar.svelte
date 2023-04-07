@@ -1,7 +1,6 @@
 <script lang="ts">
   import Card from "./Card.svelte";
   import type { Card as CardType } from "../../models/card";
-  import { randomize } from "../../utils";
 
   export let pile: CardType[];
 </script>
