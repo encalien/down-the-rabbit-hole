@@ -2,8 +2,9 @@ import { cardCollection } from '../../server/cards_collection';
 import { Card } from './card';
 import { Entity } from './entity';
 import { enemiesCollection } from '../../server/enemies_collection';
-import { randomize } from '../utils';
-import { Phase, Target } from './enums';
+import { getNextId, randomize } from '../utils';
+import { EffectAction, Phase, Target } from './enums';
+import { Potion } from './potion';
 
 export class Game {
   // game config
@@ -15,12 +16,16 @@ export class Game {
   level: number = 0;
   inProgress: boolean;
   defaultActionPoints: number = 3;
+  maxPotionSlots: number = 3;
 
   // card piles
   deck: Card[] = [];
   hand: Card[] = [];
   drawPile: Card[] = [];
   discardPile: Card[] = [];
+
+  // consumables
+  potions: Potion[] = [];
 
   // set per combat
   turn: number;
@@ -216,7 +221,8 @@ export class Game {
     this.availableActionPoints -= card.cost;
     for (const effect of card.effects) {
       const target = effect.target === Target.GAME ? this : this[effect.target];
-      target[effect.action](effect.value);
+      const value = effect.action === EffectAction.TAKE_DAMAGE ? effect.value + this.player.strength : effect.value;
+      target[effect.action](value);
       if (this.checkIfLevelComplete()) return this.endTurn();
     }
     this.discardCard(card);
@@ -245,7 +251,7 @@ export class Game {
    * @param {Card} card card to add
    */
   addCardToDeck(card: Card): void {
-    const nextId = this.deck.length ? this.deck.sort((a, b) => b.id - a.id)[0].id + 1 : 0;
+    const nextId = getNextId(this.deck);
     this.deck.push(
       new Card(nextId, card.type, card.title, card.description, card.cost, card.effects)
     );
@@ -258,5 +264,38 @@ export class Game {
   removeCardFromDeck(card: Card): void {
     const cardInd = this.deck.findIndex(c => c === card);
     this.deck.splice(cardInd, 1);
+  }  
+
+  /**
+   * Add potion
+   * @param {Potion} potion potion to add
+   */
+  addPotion(potion: Potion): void {
+    const nextId = getNextId(this.potions);
+    this.potions.push(
+      new Potion(nextId, potion.title, potion.description, potion.effects)
+    );
+  }
+
+  /**
+   * Remove potion
+   * @param {Potion} potion potion to remove
+   */
+  removePotion(potion: Potion): void {
+    const potionInd = this.potions.findIndex(p => p === potion);
+    this.potions.splice(potionInd, 1);
+  }
+
+  /**
+   * Use potion
+   * @param {Potion} potion potion to use
+   */
+  usePotion(potion: Potion): void {
+    for (const effect of potion.effects) {
+      const target = effect.target === Target.GAME ? this : this[effect.target];
+      target[effect.action](effect.value);
+      if (this.checkIfLevelComplete()) return this.endTurn();
+    }
+    this.removePotion(potion);
   }
 }

@@ -21,7 +21,7 @@
 </script>
 
 <div class="main-container">
-  <Header { game } on:openMenu />
+  <Header { game } { accessorObject } on:openMenu />
   {#if game.phase === Phase.COMBAT}
     <Combat { game } { accessorObject } />
   {:else if game.phase === Phase.REWARD}

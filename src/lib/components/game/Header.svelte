@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import Potion from './Potion.svelte';
   import type { Game } from "../../models/game";
+  import { createEventDispatcher } from 'svelte';
 
   export let game: Game;
+  export let accessorObject: any;
+
   const dispatch = createEventDispatcher();
 
   function openMainMenu():void {
@@ -12,15 +15,9 @@
 
 <div id="header" class="header">
   <div class="potions">
-    <div class="icon-wrapper">
-      <button class="icon-btn"><img src="/src/assets/bottle_silhouette.png" alt="Potion Slot"></button>
-    </div>
-    <div class="icon-wrapper">
-      <button class="icon-btn"><img src="/src/assets/bottle_silhouette.png" alt="Potion Slot"></button>
-    </div>
-    <div class="icon-wrapper">
-      <button class="icon-btn"><img src="/src/assets/bottle_silhouette.png" alt="Potion Slot"></button>
-    </div>
+    {#each Array(game.maxPotionSlots) as ps, index (index)}
+      <Potion { game } { accessorObject } potion={ game.potions[index] } />
+    {/each}
   </div>
   <div class="level">
     { game.level }
@@ -54,10 +51,6 @@
     display: flex;
     width: 100px;
     justify-content: end;
-  }
-
-  .icon-wrapper {
-    width: 30px;
   }
 
   .icon-btn {

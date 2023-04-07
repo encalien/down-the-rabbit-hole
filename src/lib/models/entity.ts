@@ -7,6 +7,9 @@ class Entity {
   block: number = 0;
   actions: Effect[][] = [];
 
+  strength: number = 0;
+  willEscape: boolean = false;
+
   constructor(name: string, maxHealth: number, actions?: Effect[][]) {
     this.name = name;
     this.maxHealth = maxHealth;
@@ -16,6 +19,7 @@ class Entity {
 
   endTurn(): void {
     this.resetBlock();
+    this.resetStrength();
   }
 
   gainBlock(block: number): void {
@@ -24,6 +28,10 @@ class Entity {
 
   resetBlock(): void {
     this.block = 0;
+  }
+
+  resetStrength(): void {
+    this.strength = 0;
   }
 
   takeDamage(damage: number): void {
@@ -47,6 +55,14 @@ class Entity {
 
   updateMaxHealth(hp: number) {
     this.maxHealth += hp;
+  }
+
+  updateStrength(amount: number): void {
+    this.strength += amount;
+  }
+
+  escape(willEscape: number): void {
+    this.willEscape = !!willEscape;
   }
 }
 

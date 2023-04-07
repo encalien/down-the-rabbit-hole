@@ -17,3 +17,7 @@ export function toCamelCase(string: string): string {
 export function randomize(list: Array<any>): Array<any> {
   return list.sort(() => Math.random() - 0.5);
 }
+
+export function getNextId(list: Array<any>): number {
+  return list.length ? list.sort((a, b) => b.id - a.id)[0].id + 1 : 0;
+}
