@@ -245,8 +245,9 @@ export class Game {
    * @param {Card} card card to add
    */
   addCardToDeck(card: Card): void {
+    const nextId = this.deck.length ? this.deck.sort((a, b) => b.id - a.id)[0].id + 1 : 0;
     this.deck.push(
-      new Card(this.deck.length, card.type, card.title, card.description, card.cost, card.effects)
+      new Card(nextId, card.type, card.title, card.description, card.cost, card.effects)
     );
   }
 
