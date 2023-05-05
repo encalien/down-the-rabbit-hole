@@ -10,23 +10,21 @@
   export let className: string = null;
 
   function playCard(): void {
+    if (!playable || !card.isPlayableThisTurn) return;
     game.playCard(card);
     accessorObject.updateGame(game);
   }
 </script>
 
-<div class="card { card.type } { className }" out:fly={ {y: -100, duration: 400 } }>
+<div class="card { card.type } { className }" 
+     out:fly={ {y: -100, duration: 400 } }
+     on:dblclick={ playCard }>
   <div class="card-wrapper">
     <div class="card-title">
       <div class="card-cost" class:active={ card.cost <= game?.availableActionPoints }>{ card.cost }</div>
       { card.title } { card.id }
     </div>
     <div class="card-description">{ card.description }</div>
-    {#if playable && card.isPlayableThisTurn}
-      <div>
-        <button on:click={ playCard }>Play</button>
-      </div>
-    {/if}
   </div>
 </div>
 
