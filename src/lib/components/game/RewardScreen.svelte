@@ -6,6 +6,7 @@
   import type { Potion as PotionType } from '../../models/potion';
   import { cardCollection } from '../../../server/cards_collection';
   import { potionCollection } from '../../../server/potions_collection';
+  import { generateRandomNumber } from '../../utils';
 
   export let game: Game;
   export let accessorObject: any;
@@ -17,8 +18,10 @@
 
   function showAvaliableCards(n: number): void {
     selectedRewardType = "add-card";
+    const offeredCardsIndices = [];
     for (let i = 0; i < n; i++) {
-      const randIndex = Math.floor(Math.random() * cardCollection.length);
+      const randIndex = generateRandomNumber(cardCollection.length, offeredCardsIndices);
+      offeredCardsIndices.push(randIndex);
       const card: CardType = cardCollection[randIndex]; 
       availableCards.push(card);
     }

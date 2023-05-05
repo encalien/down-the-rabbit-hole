@@ -21,3 +21,9 @@ export function randomize(list: Array<any>): Array<any> {
 export function getNextId(list: Array<any>): number {
   return list.length ? list.sort((a, b) => b.id - a.id)[0].id + 1 : 0;
 }
+
+export function generateRandomNumber(multiplier?: number, usedNumbers?: number[]): number {
+  const randomNumber = Math.floor(Math.random() * (multiplier || 1));
+  if (!usedNumbers || !usedNumbers.includes(randomNumber)) return randomNumber;
+  return generateRandomNumber(multiplier, usedNumbers);
+}
